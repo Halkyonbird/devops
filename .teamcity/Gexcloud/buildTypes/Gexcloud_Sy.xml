@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="64de38a4-9f19-4e79-9188-e544f979b553" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>SyntaxCheck</name>
+  <description>Syntax check of committed files</description>
+  <settings>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_3" name="Check" type="simpleRunner">
+        <parameters>
+          <param name="command.executable" value="devops/SyntaxCheck/syncheck.rb" />
+          <param name="command.parameters" value="%system.teamcity.build.changedFiles.file%" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexNewapihubGit">
+        <checkout-rule rule="+:.=&gt;newapihub" />
+      </vcs-entry-ref>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexDevopsGit">
+        <checkout-rule rule="+:.=&gt;devops" />
+      </vcs-entry-ref>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexAppstoreAppsGit">
+        <checkout-rule rule="+:.=&gt;appstore-apps" />
+      </vcs-entry-ref>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexJavaclientapiGit">
+        <checkout-rule rule="+:.=&gt;javaclientapi" />
+      </vcs-entry-ref>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexGexcloudGitRefsHeadsMaster">
+        <checkout-rule rule="+:.=&gt;gexcloud" />
+      </vcs-entry-ref>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexTestsGit" />
+    </vcs-settings>
+    <requirements>
+      <equals name="system.agent.name" value="Default Agent" />
+    </requirements>
+    <build-triggers>
+      <build-trigger id="vcsTrigger" type="vcsTrigger">
+        <parameters>
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="BUILD_EXT_4" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="rubySyntaxCheckWasFuckedUp" />
+          <param name="buildFailureOnMessage.outputText" value="Ruby syntax error(s)" />
+          <param name="buildFailureOnMessage.reverse" value="false" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_5" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="javaSyntaxCheckWasFuckedUp" />
+          <param name="buildFailureOnMessage.outputText" value="Java syntax error(s)" />
+          <param name="buildFailureOnMessage.reverse" value="false" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_6" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="yamlSyntaxCheckWasFuckedUp" />
+          <param name="buildFailureOnMessage.outputText" value="YAML syntax error(s)" />
+          <param name="buildFailureOnMessage.reverse" value="false" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_7" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="xmlSyntaxCheckWasFuckedUp" />
+          <param name="buildFailureOnMessage.outputText" value="XML syntax error(s)" />
+          <param name="buildFailureOnMessage.reverse" value="false" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_9" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="htmlSyntaxCheckWasFuckedUp" />
+          <param name="buildFailureOnMessage.outputText" value="HTML syntax error(s)" />
+          <param name="buildFailureOnMessage.reverse" value="false" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_11" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="jsonSyntaxCheckWasFuckedUp" />
+          <param name="buildFailureOnMessage.outputText" value="JSON syntax error(s)" />
+          <param name="buildFailureOnMessage.reverse" value="false" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_12" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="hamlSyntaxCheckWasFuckedUp" />
+          <param name="buildFailureOnMessage.outputText" value="HAML syntax error(s)" />
+          <param name="buildFailureOnMessage.reverse" value="false" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_13" type="BuildFailureOnMessage">
+        <parameters>
+          <param name="buildFailureOnMessage.conditionType" value="contains" />
+          <param name="buildFailureOnMessage.messagePattern" value="shellSyntaxCheckWasFuckedUp" />
+          <param name="buildFailureOnMessage.outputText" value="SHELL syntax error(s)" />
+          <param name="buildFailureOnMessage.reverse" value="false" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup>
+      <policy type="daysAndBuilds" cleanup-level="EVERYTHING">
+        <parameters>
+          <param name="keepBuilds.count" value="1" />
+          <param name="keepDays.count" value="1" />
+        </parameters>
+      </policy>
+      <policy type="daysAndBuilds" cleanup-level="HISTORY_ENTRY">
+        <parameters>
+          <param name="keepBuilds.count" value="1" />
+          <param name="keepDays.count" value="1" />
+        </parameters>
+      </policy>
+    </cleanup>
+  </settings>
+</build-type>
+

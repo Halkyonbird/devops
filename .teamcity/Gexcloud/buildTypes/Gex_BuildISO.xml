@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="4c323192-de71-4b2c-8a7b-eb109a35a037" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>buildISO</name>
+  <description>Build ISOs</description>
+  <settings>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_14" name="build ISO test plain" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="custom_iso/Rakefile" />
+          <param name="teamcity.build.workingDir" value="custom_iso" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="create_test_iso_plain" />
+          <param name="ui.rakeRunner.ruby.rvm.sdk.name" value="ruby-2.2.4" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="rvm" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_15" name="clear workspace" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="custom_iso/Rakefile" />
+          <param name="teamcity.build.workingDir" value="custom_iso" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="clear_workspace" />
+          <param name="ui.rakeRunner.ruby.rvm.sdk.name" value="ruby-2.2.4" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="rvm" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_19" name="build ISO server plain" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="custom_iso/Rakefile" />
+          <param name="teamcity.build.workingDir" value="custom_iso" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="create_test_server_plain" />
+          <param name="ui.rakeRunner.ruby.rvm.sdk.name" value="ruby-2.2.4" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="rvm" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_20" name="clear workspace at finish" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="custom_iso/Rakefile" />
+          <param name="teamcity.build.workingDir" value="custom_iso" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="clear_workspace" />
+          <param name="ui.rakeRunner.ruby.rvm.sdk.name" value="ruby-2.2.4" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="rvm" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexCustomIsoGit">
+        <checkout-rule rule="+:.=&gt;custom_iso" />
+      </vcs-entry-ref>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexGexcloudGitRefsHeadsMaster">
+        <checkout-rule rule="+:.=&gt;gexcloud" />
+      </vcs-entry-ref>
+    </vcs-settings>
+    <requirements>
+      <exists name="env.agentCanBuildBoxes" />
+    </requirements>
+    <build-triggers />
+    <cleanup />
+  </settings>
+</build-type>
+

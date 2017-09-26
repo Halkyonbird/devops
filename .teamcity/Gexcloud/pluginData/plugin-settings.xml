@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <slackNotifications enabled="true">
+    <slackNotification channel="#test_devops" enabled="true" mention-channel-enabled="true" mention-slack-user-enabled="true">
+      <states>
+        <state type="buildInterrupted" enabled="true" />
+        <state type="beforeBuildFinish" enabled="false" />
+        <state type="responsibilityChanged" enabled="false" />
+        <state type="buildFixed" enabled="true" />
+        <state type="buildFailed" enabled="true" />
+        <state type="buildStarted" enabled="false" />
+        <state type="buildSuccessful" enabled="false" />
+        <state type="buildBroken" enabled="false" />
+        <state type="buildFinished" enabled="true" />
+      </states>
+      <build-types enabled-for-all="true" enabled-for-subprojects="true" />
+      <content iconUrl="https://raw.githubusercontent.com/PeteGoo/tcSlackBuildNotifier/master/docs/TeamCity72x72.png" botName="TeamCity" maxCommitsToDisplay="5" showBuildAgent="false" showElapsedBuildTime="true" showCommits="true" showCommitters="true" showFailureReason="true" />
+    </slackNotification>
+    <slackNotification channel="#engineering" enabled="false" mention-channel-enabled="true" mention-slack-user-enabled="true">
+      <states>
+        <state type="buildInterrupted" enabled="true" />
+        <state type="beforeBuildFinish" enabled="false" />
+        <state type="responsibilityChanged" enabled="false" />
+        <state type="buildFixed" enabled="false" />
+        <state type="buildFailed" enabled="true" />
+        <state type="buildStarted" enabled="false" />
+        <state type="buildSuccessful" enabled="false" />
+        <state type="buildBroken" enabled="false" />
+        <state type="buildFinished" enabled="true" />
+      </states>
+      <build-types enabled-for-all="true" enabled-for-subprojects="false" />
+      <content iconUrl="https://raw.githubusercontent.com/PeteGoo/tcSlackBuildNotifier/master/docs/TeamCity72x72.png" botName="TeamCity" maxCommitsToDisplay="5" showBuildAgent="false" showElapsedBuildTime="true" showCommits="true" showCommitters="true" showFailureReason="true" />
+    </slackNotification>
+  </slackNotifications>
+  <versionedSettings rootId="Gexcloud_HttpDevLocalGexDevopsGit" enabled="true" showChanges="false" buildSettings="ALWAYS_USE_CURRENT" />
+</settings>
+

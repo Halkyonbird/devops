@@ -1,0 +1,34 @@
+PRIVATE_IP = "10.1.0.223"
+PRIVATE_MASK = "255.0.0.0"
+GATEWAY = "10.1.0.1"
+
+
+
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/precise64"
+
+  config.ssh.password="vagrant"
+
+  config.vm.define "vagtest", primary: true do |main|
+
+    # eth1
+    # problem in Ubuntu 16: "eth0" => "enp3s0"
+    main.vm.network "public_network", auto_config: false,  :bridge => "enp3s0"
+    main.vm.provision "shell", run: "always", inline: "ifconfig eth1 " + PRIVATE_IP + " netmask " + PRIVATE_MASK + " up"
+
+    # gateway
+    main.vm.provision "shell", run: "always", inline: "route add default gw "+ GATEWAY
+    # delete default gw on eth0
+    main.vm.provision "shell", run: "always",
+                      inline: "eval `route -n | awk '{ if ($8 ==\"eth0\" && $2 != \"0.0.0.0\") print \"route del default gw \" $2; }'`"
+
+    main.vm.provider "virtualbox" do |vb|
+
+      vb.gui = true
+
+      vb.memory = "4024"
+    end
+  end
+
+end

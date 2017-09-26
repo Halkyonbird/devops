@@ -1,0 +1,9 @@
+{
+  "handlers": {
+    "redis": {
+      "type": "pipe",
+      "command": "/etc/sensu/plugins/redis_handler.rb"
+    }
+  }
+
+}

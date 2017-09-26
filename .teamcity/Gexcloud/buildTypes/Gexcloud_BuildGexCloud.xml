@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="a4af457f-c1a5-4751-8390-cc263c41fd9e" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>NightlyBuild</name>
+  <description />
+  <settings>
+    <disabled-settings>
+      <setting-ref ref="RUNNER_10" />
+      <setting-ref ref="RUNNER_11" />
+      <setting-ref ref="RUNNER_12" />
+      <setting-ref ref="RUNNER_13" />
+      <setting-ref ref="RUNNER_16" />
+      <setting-ref ref="RUNNER_17" />
+      <setting-ref ref="RUNNER_18" />
+      <setting-ref ref="RUNNER_2" />
+      <setting-ref ref="RUNNER_4" />
+      <setting-ref ref="RUNNER_5" />
+      <setting-ref ref="RUNNER_6" />
+      <setting-ref ref="RUNNER_7" />
+      <setting-ref ref="RUNNER_8" />
+      <setting-ref ref="RUNNER_9" />
+    </disabled-settings>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_4" name="rake ubuntu" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="base/Rakefile" />
+          <param name="teamcity.build.workingDir" value="base" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="ubuntu" />
+          <param name="ui.rakeRunner.ruby.rvm.sdk.name" value="ruby-2.2.4" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="rvm" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_5" name="vagrant up build" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="vagrant up build" />
+          <param name="teamcity.build.workingDir" value="base" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_6" name="rake all" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="base/apptemplates/Rakefile" />
+          <param name="teamcity.build.workingDir" value="base/apptemplates" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="all" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="rake box[plain]" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="base/Rakefile" />
+          <param name="teamcity.build.workingDir" value="base" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="box[plain]" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="rake box[cdh]" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="base/Rakefile" />
+          <param name="teamcity.build.workingDir" value="base" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="box[cdh]" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_12" name="vagrant halt build" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="vagrant halt build | true" />
+          <param name="teamcity.build.workingDir" value="base" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_9" name="vagrant up client_plain" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="vagrant up client_plain" />
+          <param name="teamcity.build.workingDir" value="tests" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_11" name="test who am i" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[echo "whoami"
+whoami >&2
+echo %env.DEFAULTS_PATH%
+echo %env.HOME%]]></param>
+          <param name="teamcity.build.workingDir" value="tests" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_10" name="test client_plain" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="tests/Rakefile" />
+          <param name="teamcity.build.workingDir" value="tests" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.frameworks.rspec.enabled" value="true" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="spec:client_plain" />
+          <param name="ui.rakeRunner.ruby.rvm.sdk.name" value="ruby-2.2.4" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="rvm" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_13" name="vagrant halt client_plain" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="vagrant halt client_plain | true" />
+          <param name="teamcity.build.workingDir" value="tests" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_16" name="vagrant up client_cdh" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="vagrant up client_cdh" />
+          <param name="teamcity.build.workingDir" value="tests" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_17" name="test client_cdh" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="tests/Rakefile" />
+          <param name="teamcity.build.workingDir" value="tests" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.frameworks.rspec.enabled" value="true" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="spec:client_cdh" />
+          <param name="ui.rakeRunner.ruby.rvm.sdk.name" value="ruby-2.2.4" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="rvm" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_18" name="vagrant halt client_cdh" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="vagrant halt client_cdh | true" />
+          <param name="teamcity.build.workingDir" value="tests" />
+          <param name="teamcity.step.mode" value="execute_always" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="clean_old_local" type="rake-runner">
+        <parameters>
+          <param name="build-file-path" value="base/Rakefile" />
+          <param name="teamcity.build.workingDir" value="base" />
+          <param name="teamcity.step.mode" value="execute_if_failed" />
+          <param name="ui.rakeRunner.config.version" value="2" />
+          <param name="ui.rakeRunner.rake.tasks.names" value="clean_old_local" />
+          <param name="ui.rakeRunner.ruby.use.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Gexcloud_HttpDevLocalGexGexcloudGitRefsHeadsMaster" />
+    </vcs-settings>
+    <requirements>
+      <exists name="env.agentCanBuildBoxes" />
+    </requirements>
+    <build-triggers>
+      <build-trigger id="TRIGGER_2" type="schedulingTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:&lt;default&gt;" />
+          <param name="cronExpression_dm" value="*" />
+          <param name="cronExpression_dw" value="?" />
+          <param name="cronExpression_hour" value="*" />
+          <param name="cronExpression_min" value="0" />
+          <param name="cronExpression_month" value="*" />
+          <param name="cronExpression_sec" value="0" />
+          <param name="cronExpression_year" value="*" />
+          <param name="dayOfWeek" value="Sunday" />
+          <param name="hour" value="1" />
+          <param name="minute" value="0" />
+          <param name="promoteWatchedBuild" value="true" />
+          <param name="revisionRule" value="lastFinished" />
+          <param name="revisionRuleBuildBranch" value="&lt;default&gt;" />
+          <param name="schedulingPolicy" value="daily" />
+          <param name="timezone" value="SERVER" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="jetbrains.agent.free.space" type="jetbrains.agent.free.space">
+        <parameters>
+          <param name="free-space-work" value="20gb" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup>
+      <policy type="daysAndBuilds" cleanup-level="EVERYTHING">
+        <parameters>
+          <param name="keepBuilds.count" value="1" />
+          <param name="keepDays.count" value="1" />
+        </parameters>
+      </policy>
+      <policy type="daysAndBuilds" cleanup-level="HISTORY_ENTRY">
+        <parameters>
+          <param name="keepBuilds.count" value="1" />
+          <param name="keepDays.count" value="1" />
+        </parameters>
+      </policy>
+      <policy type="daysAndBuilds" cleanup-level="ARTIFACTS">
+        <parameters>
+          <param name="keepBuilds.count" value="1" />
+          <param name="keepDays.count" value="1" />
+        </parameters>
+      </policy>
+    </cleanup>
+  </settings>
+</build-type>
+
